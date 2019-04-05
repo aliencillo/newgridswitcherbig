@@ -6,4 +6,5 @@ iOS 11
 iOS 12 
 
 ## Credits
-from iknotum flex patches
+aliencillo
+iknotum flex patches
