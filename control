@@ -1,0 +1,10 @@
+Package: pro.aliencillo.newgridswitcherbig
+Name: NewGridSwitcherBig
+Depends: mobilesubstrate
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: A grid switcher with big cards
+Maintainer: aliencillo <correoalien8@gmail.com>
+Author: aliencillo <correoalien8@gmail.com>
+Section: Tweaks
+Tag: purpose::extension, compatible_min::ios11.0, compatible_max::ios12.2
