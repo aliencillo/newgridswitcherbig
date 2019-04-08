@@ -1,5 +1,5 @@
 /**
- * 
+ *  NewGridSwitcherBig
  */
 // #include "BSPlatform.h"
 #import "Headers.h"
@@ -54,41 +54,32 @@ inline double GetPrefDouble(NSString *key) {
 
 
 %hook SBGridSwitcherPersonality
--(bool) _scrollViewPagingEnabled  {
-  //bool newValue = GetPrefInt(@"scrollViewPagingEnabled"); 
-  NSObject *object = [[NSObject alloc] init];
-  BOOL isSettingOn = [object isSettingOn:@"scrollViewPagingEnabled"];
-  if (isSettingOn)
+-(bool)scrollViewPagingEnabled  {
+  if (GetPrefBool(@"scrollViewPagingEnabled"))
   {
-    return YES;
+    return true;
   }
   else
   {
-    return NO;
+    return false;
   }
 }
--(double) _titleAndIconOpacityForIndex {
-  //double newValue = GetPrefDouble(@"titleAndIconOpacityForIndex"); 
-  NSObject *object = [[NSObject alloc] init];
-  BOOL isSettingOn = [object isSettingOn:@"titleAndIconOpacityForIndex"];
-  if (isSettingOn)
+-(double)titleAndIconOpacityForIndex:(unsigned long long)arg1 {
+  if (GetPrefBool(@"titleAndIconOpacityForIndex"))
   {
     return 0;
   }
   else
   {
-     return %orig;
+    return %orig(arg1);
   }
 }
 %end
 
 
 %hook SBAppSwitcherSettings
--(void)setSwitcherStyle:(NSInteger)style {
-  //int newValue = GetPrefInt(@"SWITCHER_STYLE"); 
-  NSObject *object = [[NSObject alloc] init];
-  BOOL isSettingOn = [object isSettingOn:@"SWITCHER_STYLE"];
-  if (isSettingOn)
+-(void)setSwitcherStyle:(long)arg1 {
+   if (GetPrefBool(@"SWITCHER_STYLE"))
   {
     static int SWITCHER_STYLE = 2;
     %orig(SWITCHER_STYLE);
