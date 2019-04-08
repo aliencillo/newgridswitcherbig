@@ -6,7 +6,7 @@ ARCHS = arm64
 include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = NewGridSwitcherBigPrefs
-NewGridSwitcherBigPrefs_FILES = CHSRootListController.m
+NewGridSwitcherBigPrefs_FILES = NGRootListController.m
 NewGridSwitcherBigPrefs_INSTALL_PATH = /Library/PreferenceBundles
 NewGridSwitcherBigPrefs_FRAMEWORKS = UIKit
 NewGridSwitcherBigPrefs_PRIVATE_FRAMEWORKS = Preferences

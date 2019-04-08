@@ -2,7 +2,7 @@
 #import <Preferences/PSSpecifier.h> 
 #include <spawn.h>
 
-@interface CHSRootListController : PSListController
+@interface NGRootListController : PSListController
 
 -(void)respring;
 

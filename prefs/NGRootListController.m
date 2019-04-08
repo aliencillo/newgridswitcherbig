@@ -1,6 +1,6 @@
-#include "CHSRootListController.h"
+#include "NGRootListController.h"
 
-@implementation CHSRootListController
+@implementation NGRootListController
 
 - (NSArray *)specifiers {
 	if (!_specifiers) {
