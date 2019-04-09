@@ -95,7 +95,7 @@ inline double GetPrefDouble(NSString *key) {
 	{
     %orig(46);
 	}
-	else if (newValue == 4)
+	else if (newValue == 5)
 	{
 	%orig(0);
 	}
@@ -110,7 +110,7 @@ inline double GetPrefDouble(NSString *key) {
 	{
     %orig(38);
 	}
-	else if (newValue == 4)
+	else if (newValue == 5)
 	{
 	%orig(0);
 	}
@@ -125,7 +125,7 @@ inline double GetPrefDouble(NSString *key) {
 	{
     %orig(44);
 	}
-	else if (newValue == 4)
+	else if (newValue == 5)
 	{
 	%orig(0);
 	}
@@ -140,7 +140,7 @@ inline double GetPrefDouble(NSString *key) {
 	{
     %orig(38);
 	}
-	else if (newValue == 4)
+	else if (newValue == 5)
 	{
 	%orig(0);
 	}
@@ -162,7 +162,7 @@ inline double GetPrefDouble(NSString *key) {
 	{
 	return false;
 	}
-	else if (newValue == 4)
+	else if (newValue == 5)
 	{
 	return true;
 	}
