@@ -4,8 +4,8 @@
 
  #import "Headers.h"
 
-//static int SWITCHER_STYLE = 2; // 0 = auto, 1 = deck, 2 = grid, 3 = minimum viable
-//static double SWITCHER_PAGESCALE = 0.35;
+//static int SwitcherStyle = 2; // 0 = auto, 1 = deck, 2 = grid, 3 = minimum viable
+//static double SwitcherPageScale = 0.35;
 //static double VerticalNaturalSpacingPortrait = 48;
 //static double HorizontalInterpageSpacingPortrait = 40;
 //static double VerticalNaturalSpacingLandscape = 40;
@@ -14,6 +14,12 @@
 #define PLIST_PATH @"/var/mobile/Library/Preferences/pro.aliencillo.newgridswitcherbigprefs.plist"
 inline int GetPrefInt(NSString *key) {
 	return [[[NSDictionary dictionaryWithContentsOfFile:PLIST_PATH] valueForKey:key] intValue];
+}
+inline bool GetPrefBool(NSString *key) {
+	return [[[NSDictionary dictionaryWithContentsOfFile:PLIST_PATH] valueForKey:key] boolValue];
+}
+inline double GetPrefDouble(NSString *key) {
+	return [[[NSDictionary dictionaryWithContentsOfFile:PLIST_PATH] valueForKey:key] doubleValue];
 }
 
 %hook SBAppSwitcherSettings
@@ -31,6 +37,14 @@ inline int GetPrefInt(NSString *key) {
 	{
 	%orig(2);
 	}
+	else if (newValue == 5)
+	{
+	%orig(2);
+	}
+	else if (newValue == 6)
+	{
+	%orig(1);
+	}
 	else
 	{
 	%orig(1);
@@ -38,7 +52,7 @@ inline int GetPrefInt(NSString *key) {
 }
 -(void)setGridSwitcherPageScale:(double)arg1 {
     int newValue = GetPrefInt(@"SwitcherType");
-    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    //UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
 	if (newValue == 2)
 	{
 	%orig(0.25);
@@ -57,7 +71,18 @@ inline int GetPrefInt(NSString *key) {
 	//}
 	else if (newValue == 4)
 	{
+	%orig(0.40);
+	}
+	else if (newValue == 5)
+	{
+	//double scaleValue = GetPrefDouble(@"SwitcherPageScale"); 
+	//scaleValue = ((int)(scaleValue * 100 + .5) / 100.0);
+	//%orig(scaleValue);
 	%orig(0.50);
+	}
+	else if (newValue == 6)
+	{
+	%orig;
 	}
 	else
 	{
@@ -68,7 +93,7 @@ inline int GetPrefInt(NSString *key) {
 	int newValue = GetPrefInt(@"SwitcherType");
     if (newValue == 3)
 	{
-    %orig(44);
+    %orig(46);
 	}
 	else if (newValue == 4)
 	{
@@ -83,7 +108,7 @@ inline int GetPrefInt(NSString *key) {
     int newValue = GetPrefInt(@"SwitcherType");
     if (newValue == 3)
 	{
-    %orig(32);
+    %orig(38);
 	}
 	else if (newValue == 4)
 	{
@@ -113,7 +138,7 @@ inline int GetPrefInt(NSString *key) {
     int newValue = GetPrefInt(@"SwitcherType");
 	if (newValue == 3)
 	{
-    %orig(30);
+    %orig(38);
 	}
 	else if (newValue == 4)
 	{
@@ -147,22 +172,42 @@ inline int GetPrefInt(NSString *key) {
 	}
 }
 -(double)titleAndIconOpacityForIndex:(unsigned long long)arg1 {
-	int newValue = GetPrefInt(@"SwitcherType");
-    if (newValue == 2)
+	int newValue = GetPrefInt(@"titleAndIconOpacityForIndex");
+	//if (newValue == 2)
+	//{
+	//return %orig(arg1);
+	//}
+	//else if (newValue == 3)
+	//{
+	//return %orig(arg1);
+	//}
+	//else if (newValue == 4)
+	//{
+	//return 0;
+	//}
+	if (newValue == 1)
 	{
-	return %orig(arg1);
-	}
-	else if (newValue == 3)
-	{
-	return %orig(arg1);
-	}
-	else if (newValue == 4)
-	{
-	return 0;
+	return %orig;
 	}
 	else
 	{
-	return %orig(arg1);
+	return 0;
 	}
+}
+%end
+
+%hook SpringBoard
+-(void)applicationDidFinishLaunching:(id)application {
+	%orig;
+	//bool newValue = GetPrefInt(@"titleAndIconOpacityForIndex");
+	//BOOL a = YES;	
+	//NSString valor = NSLog(@"Value is %i",newValue);
+	//UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hi Akash" 
+		//message:@"Headphone present" 
+		//delegate:nil 
+		//cancelButtonTitle:@"I Know" 
+		//otherButtonTitles:nil];
+	//[alert show];
+	//[alert release];
 }
 %end

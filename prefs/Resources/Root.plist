@@ -78,7 +78,9 @@
 			<string>Deck ( default )</string>
 			<string>Grid</string>
 			<string>Grid Bigger</string>
+			<string>Grid More Bigger</string>
 			<string>Grid 4x4</string>
+			
 			</array>
 			<key>validValues</key>
 			<array>
@@ -86,6 +88,32 @@
 			<string>2</string>
 			<string>3</string>
 			<string>4</string>
+			<string>5</string>
+			
+			</array>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkListCell</string>
+			<key>defaults</key>
+			<string>pro.aliencillo.newgridswitcherbigprefs</string>
+			<key>detail</key>
+			<string>PSListItemsController</string>
+			<key>key</key>
+			<string>titleAndIconOpacityForIndex</string>
+			<key>label</key>
+			<string>Hide icons/tittles</string>
+			<key>default</key>
+			<integer>1</integer>
+			<key>validTitles</key>
+			<array>
+			<string>No</string>
+			<string>Yes</string>
+			</array>
+			<key>validValues</key>
+			<array>
+			<string>1</string>
+			<string>2</string>
 			</array>
 		</dict>
 		<dict>
