@@ -1,0 +1,9 @@
+-(double)_containerToCardsTopMargin;
+-(BOOL)_controlCenterIsVerticallyCentered;
+-(unsigned long long)_numberOfCols;
+-(double)_dockHeightForSwipeGesture;
+
+
+-(BOOL)shouldShowControlCenter {
+		return NO;
+	}

@@ -1,8 +1,8 @@
 /**
  *  NewGridSwitcherBig
  */
-// #include "BSPlatform.h"
-#import "Headers.h"
+
+ #import "Headers.h"
 
 //static int SWITCHER_STYLE = 2; // 0 = auto, 1 = deck, 2 = grid, 3 = minimum viable
 //static double SWITCHER_PAGESCALE = 0.35;
@@ -12,152 +12,157 @@
 //static double HorizontalInterpageSpacingLandscape = 32;
 
 #define PLIST_PATH @"/var/mobile/Library/Preferences/pro.aliencillo.newgridswitcherbigprefs.plist"
- 
-inline bool GetPrefBool(NSString *key) {
-	return [[[NSDictionary dictionaryWithContentsOfFile:PLIST_PATH] valueForKey:key] boolValue];
-}
-
 inline int GetPrefInt(NSString *key) {
 	return [[[NSDictionary dictionaryWithContentsOfFile:PLIST_PATH] valueForKey:key] intValue];
 }
 
-inline double GetPrefDouble(NSString *key) {
-	return [[[NSDictionary dictionaryWithContentsOfFile:PLIST_PATH] valueForKey:key] doubleValue];
-}
-
-%hook NSObject
-@interface NSObject (customObject)
-- (BOOL)isSettingOn:(NSString *)keyStr;
-@end
-
-
-%new
-- (BOOL)isSettingOn:(NSString *)keyStr
-{
-  const char *keyStrC = [keyStr cStringUsingEncoding:NSUTF8StringEncoding];
-  CFPreferencesAppSynchronize(CFSTR("pro.aliencillo.newgridswitcherbigprefs"));
-  CFPropertyListRef value = CFPreferencesCopyAppValue(CFStringCreateWithCString(NULL, keyStrC, kCFStringEncodingUTF8), CFSTR("pro.aliencillo.newgridswitcherbigprefs"));
-
-  NSString *valueString = [NSString stringWithFormat:@"%@", value];
-  NSString *noVal = @"0";
-
-  if ([valueString isEqualToString:noVal])
-  {
-    return NO;
-  }
-  else
-  {
-    return YES;
-  }
-}
-%end
-
-
-%hook SBGridSwitcherPersonality
--(bool)scrollViewPagingEnabled  {
-  if (GetPrefBool(@"scrollViewPagingEnabled"))
-  {
-    return true;
-  }
-  else
-  {
-    return false;
-  }
-}
--(double)titleAndIconOpacityForIndex:(unsigned long long)arg1 {
-  if (GetPrefBool(@"titleAndIconOpacityForIndex"))
-  {
-    return 0;
-  }
-  else
-  {
-    return %orig(arg1);
-  }
-}
-%end
-
-
 %hook SBAppSwitcherSettings
--(void)setSwitcherStyle:(long)arg1 {
-   if (GetPrefBool(@"SWITCHER_STYLE"))
-  {
-    static int SWITCHER_STYLE = 2;
-    %orig(SWITCHER_STYLE);
-  }
-  else
-  {
-    static int SWITCHER_STYLE = 1;
-    %orig(SWITCHER_STYLE);
-  }
+-(void)setSwitcherStyle:(int)arg1 {
+	int newValue = GetPrefInt(@"SwitcherType");
+    if (newValue == 2)
+	{
+	%orig(2);
+	}
+	else if (newValue == 3)
+	{
+	%orig(2);
+	}
+	else if (newValue == 4)
+	{
+	%orig(2);
+	}
+	else
+	{
+	%orig(1);
+	}
 }
 -(void)setGridSwitcherPageScale:(double)arg1 {
-  double newValue = GetPrefDouble(@"SWITCHER_PAGESCALE"); 
-  //int y = (int) newValue;
-  //newValue = scanf("%.2f",&newValue);
-  newValue = ((int)(newValue * 100 + .5) / 100.0);
-  NSObject *object = [[NSObject alloc] init];
-  BOOL isSettingOn = [object isSettingOn:@"SWITCHER_PAGESCALE"];
-  if (isSettingOn)
-  {
-    return %orig(newValue);
-  }
-  else
-  {
-    return %orig(0.3500);
-  }
-}
--(void)setGridSwitcherVerticalNaturalSpacingPortrait:(double)arg1 {
-  int newValue = GetPrefDouble(@"VerticalNaturalSpacingPortrait"); 
-  NSObject *object = [[NSObject alloc] init];
-  BOOL isSettingOn = [object isSettingOn:@"VerticalNaturalSpacingPortrait"];
-  if (isSettingOn)
-  {
-    return %orig(newValue);
-  }
-  else
-  {
-    return %orig;
-  }
+    int newValue = GetPrefInt(@"SwitcherType");
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+	if (newValue == 2)
+	{
+	%orig(0.25);
+	}
+	else if (newValue == 3)
+	{
+	%orig(0.35);
+	}
+	//else if ((newValue == 3) && (orientation == UIInterfaceOrientationLandscapeLeft))
+	//{
+	//%orig(0.25);
+	//}
+	//else if ((newValue == 3) && (orientation == UIInterfaceOrientationLandscapeRight))
+	//{
+	//%orig(0.25);
+	//}
+	else if (newValue == 4)
+	{
+	%orig(0.50);
+	}
+	else
+	{
+	%orig;
+	}
+ }
+ -(void)setGridSwitcherVerticalNaturalSpacingPortrait:(double)arg1 {
+	int newValue = GetPrefInt(@"SwitcherType");
+    if (newValue == 3)
+	{
+    %orig(44);
+	}
+	else if (newValue == 4)
+	{
+	%orig(0);
+	}
+	else
+	{
+    %orig;
+	}
 }
 -(void)setGridSwitcherHorizontalInterpageSpacingPortrait:(double)arg1 {
-  int newValue = GetPrefDouble(@"HorizontalInterpageSpacingPortrait"); 
-  NSObject *object = [[NSObject alloc] init];
-  BOOL isSettingOn = [object isSettingOn:@"HorizontalInterpageSpacingPortrait"];
-  if (isSettingOn)
-  {
-    return %orig(newValue);
-  }
-  else
-  {
-    return %orig;
-  }
+    int newValue = GetPrefInt(@"SwitcherType");
+    if (newValue == 3)
+	{
+    %orig(32);
+	}
+	else if (newValue == 4)
+	{
+	%orig(0);
+	}
+	else
+	{
+    %orig;
+	}
 }
-
 -(void)setGridSwitcherVerticalNaturalSpacingLandscape:(double)arg1 {
-  int newValue = GetPrefDouble(@"VerticalNaturalSpacingLandscape"); 
-  NSObject *object = [[NSObject alloc] init];
-  BOOL isSettingOn = [object isSettingOn:@"VerticalNaturalSpacingLandscape"];
-  if (isSettingOn)
-  {
-    return %orig(newValue);
-  }
-  else
-  {
-    return %orig;
-  }
+    int newValue = GetPrefInt(@"SwitcherType");
+	if (newValue == 3)
+	{
+    %orig(44);
+	}
+	else if (newValue == 4)
+	{
+	%orig(0);
+	}
+	else
+	{
+    %orig;
+	}
 }
 -(void)setGridSwitcherHorizontalInterpageSpacingLandscape:(double)arg1 {
-  int newValue = GetPrefDouble(@"HorizontalInterpageSpacingLandscape"); 
-  NSObject *object = [[NSObject alloc] init];
-  BOOL isSettingOn = [object isSettingOn:@"HorizontalInterpageSpacingLandscape"];
-  if (isSettingOn)
-  {
-    return %orig(newValue);
-  }
-  else
-  {
-    return %orig;
-  }
+    int newValue = GetPrefInt(@"SwitcherType");
+	if (newValue == 3)
+	{
+    %orig(30);
+	}
+	else if (newValue == 4)
+	{
+	%orig(0);
+	}
+	else
+	{
+    %orig;
+	}
 }
+%end
 
+%hook SBGridSwitcherPersonality
+	-(bool)scrollViewPagingEnabled  {
+	int newValue = GetPrefInt(@"SwitcherType");
+    if (newValue == 2)
+	{
+	return false;
+	}
+	else if (newValue == 3)
+	{
+	return false;
+	}
+	else if (newValue == 4)
+	{
+	return true;
+	}
+	else
+	{
+	return false;
+	}
+}
+-(double)titleAndIconOpacityForIndex:(unsigned long long)arg1 {
+	int newValue = GetPrefInt(@"SwitcherType");
+    if (newValue == 2)
+	{
+	return %orig(arg1);
+	}
+	else if (newValue == 3)
+	{
+	return %orig(arg1);
+	}
+	else if (newValue == 4)
+	{
+	return 0;
+	}
+	else
+	{
+	return %orig(arg1);
+	}
+}
 %end
