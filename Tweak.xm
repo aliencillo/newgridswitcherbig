@@ -2,7 +2,7 @@
  *  NewGridSwitcherBig
  */
 
- #import "Headers.h"
+#import "BSPlatform.h"
 
 //static int SwitcherStyle = 2; // 0 = auto, 1 = deck, 2 = grid, 3 = minimum viable
 //static double SwitcherPageScale = 0.35;
@@ -11,7 +11,7 @@
 //static double VerticalNaturalSpacingLandscape = 40;
 //static double HorizontalInterpageSpacingLandscape = 32;
 
-#define PLIST_PATH @"/var/mobile/Library/Preferences/pro.aliencillo.newgridswitcherbigprefs.plist"
+#define PLIST_PATH @"/var/mobile/Library/Preferences/pro.aliencillo.newgridswitcherbig.plist"
 inline int GetPrefInt(NSString *key) {
 	return [[[NSDictionary dictionaryWithContentsOfFile:PLIST_PATH] valueForKey:key] intValue];
 }
@@ -43,7 +43,7 @@ inline double GetPrefDouble(NSString *key) {
 	}
 	else if (newValue == 6)
 	{
-	%orig(1);
+	%orig(2);
 	}
 	else
 	{
@@ -75,14 +75,13 @@ inline double GetPrefDouble(NSString *key) {
 	}
 	else if (newValue == 5)
 	{
-	//double scaleValue = GetPrefDouble(@"SwitcherPageScale"); 
-	//scaleValue = ((int)(scaleValue * 100 + .5) / 100.0);
-	//%orig(scaleValue);
 	%orig(0.50);
 	}
 	else if (newValue == 6)
 	{
-	%orig;
+	double scaleValue = GetPrefDouble(@"SwitcherPageScale"); 
+	//scaleValue = ((double)(scaleValue * 100 + .5) / 100.0);
+	%orig(scaleValue);
 	}
 	else
 	{
@@ -91,13 +90,18 @@ inline double GetPrefDouble(NSString *key) {
  }
  -(void)setGridSwitcherVerticalNaturalSpacingPortrait:(double)arg1 {
 	int newValue = GetPrefInt(@"SwitcherType");
-    if (newValue == 3)
+	if (newValue == 3)
 	{
     %orig(46);
 	}
 	else if (newValue == 5)
 	{
 	%orig(0);
+	}
+    else if (newValue == 6)
+	{
+	int PosValue = GetPrefInt(@"VerticalNaturalSpacingPortrait");
+	%orig(PosValue);
 	}
 	else
 	{
@@ -114,6 +118,11 @@ inline double GetPrefDouble(NSString *key) {
 	{
 	%orig(0);
 	}
+	else if (newValue == 6)
+	{
+	int PosValue = GetPrefInt(@"HorizontalInterpageSpacingPortrait");
+	%orig(PosValue);
+	}
 	else
 	{
     %orig;
@@ -128,6 +137,11 @@ inline double GetPrefDouble(NSString *key) {
 	else if (newValue == 5)
 	{
 	%orig(0);
+	}
+	else if (newValue == 6)
+	{
+	int PosValue = GetPrefInt(@"VerticalNaturalSpacingLandscape");
+	%orig(PosValue);
 	}
 	else
 	{
@@ -144,6 +158,11 @@ inline double GetPrefDouble(NSString *key) {
 	{
 	%orig(0);
 	}
+	else if (newValue == 6)
+	{
+	int PosValue = GetPrefInt(@"HorizontalInterpageSpacingLandscape");
+	%orig(PosValue);
+	}
 	else
 	{
     %orig;
@@ -153,22 +172,14 @@ inline double GetPrefDouble(NSString *key) {
 
 %hook SBGridSwitcherPersonality
 	-(bool)scrollViewPagingEnabled  {
-	int newValue = GetPrefInt(@"SwitcherType");
-    if (newValue == 2)
+	int newValue = GetPrefInt(@"scrollViewPagingEnabled");
+	if (newValue == 1)
 	{
-	return false;
-	}
-	else if (newValue == 3)
-	{
-	return false;
-	}
-	else if (newValue == 5)
-	{
-	return true;
+	return %orig;
 	}
 	else
 	{
-	return false;
+	return true;
 	}
 }
 -(double)titleAndIconOpacityForIndex:(unsigned long long)arg1 {
