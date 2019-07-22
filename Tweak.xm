@@ -196,15 +196,28 @@ inline double GetPrefDouble(NSString *key) {
 	//{
 	//return 0;
 	//}
-	if (newValue == 1)
-	{
-	return %orig;
-	}
-	else
+	if (newValue == 3)
 	{
 	return 0;
 	}
+	else
+	{
+	return %orig;
+	}
 }
+
+-(double)titleOpacityForIndex:(unsigned long long)arg1 { 
+	int newValue = GetPrefInt(@"titleAndIconOpacityForIndex");
+	if (newValue == 2)
+	{
+	return 0;
+	} 
+	else
+	{
+	return %orig;
+	}
+}
+
 %end
 
 %hook SpringBoard

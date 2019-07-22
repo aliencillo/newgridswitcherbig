@@ -71,8 +71,6 @@
 			<string>SwitcherType</string>
 			<key>label</key>
 			<string>Type</string>
-			<key>default</key>
-			<string>Deck</string>
 			<key>validTitles</key>
 			<array>
 			<string>Deck</string>
@@ -91,8 +89,10 @@
 			<string>5</string>
 			<string>6</string>
 			</array>
+			<key>default</key>
+			<string>Deck</string>
 			<key>PostNotification</key>
-			<string>pro.aliencillo.newgridswitcherbig/preferences.changed</string>
+			<string>pro.aliencillo.newgridswitcherbig/prefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -104,21 +104,23 @@
 			<key>key</key>
 			<string>titleAndIconOpacityForIndex</string>
 			<key>label</key>
-			<string>Hide Icons/Tittles</string>
-			<key>default</key>
-			<string>No</string>
+			<string>Hide Tittle / Icon</string>
 			<key>validTitles</key>
 			<array>
 			<string>No</string>
-			<string>Yes</string>
+			<string>Hide Tittle</string>
+			<string>Hide Tittle / Icon</string>
 			</array>
 			<key>validValues</key>
 			<array>
 			<string>1</string>
 			<string>2</string>
+			<string>3</string>
 			</array>
+			<key>default</key>
+			<string>No</string>
 			<key>PostNotification</key>
-			<string>pro.aliencillo.newgridswitcherbig/preferences.changed</string>
+			<string>pro.aliencillo.newgridswitcherbig/prefs</string>
 		</dict>
 		    <dict>
 			<key>cell</key>
@@ -131,8 +133,6 @@
 			<string>scrollViewPagingEnabled</string>
 			<key>label</key>
 			<string>Enable Paging</string>
-			<key>default</key>
-			<string>No</string>
 			<key>validTitles</key>
 			<array>
 			<string>No</string>
@@ -143,8 +143,10 @@
 			<string>1</string>
 			<string>2</string>
 			</array>
+			<key>default</key>
+			<string>No</string>
 			<key>PostNotification</key>
-			<string>pro.aliencillo.newgridswitcherbig/preferences.changed</string>
+			<string>pro.aliencillo.newgridswitcherbig/prefs</string>
 		</dict>
 			<dict>
 			<key>cell</key>
@@ -176,7 +178,7 @@
 			<key>showValue</key>
 			<true/>
 			<key>PostNotification</key>
-			<string>pro.aliencillo.newgridswitcherbig/preferences.changed</string>
+			<string>pro.aliencillo.newgridswitcherbig/prefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -208,7 +210,7 @@
 			<key>showValue</key>
 			<true/>
 			<key>PostNotification</key>
-			<string>pro.aliencillo.newgridswitcherbig/preferences.changed</string>
+			<string>pro.aliencillo.newgridswitcherbig/prefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -240,7 +242,7 @@
 			<key>showValue</key>
 			<true/>
 			<key>PostNotification</key>
-			<string>pro.aliencillo.newgridswitcherbig/preferences.changed</string>
+			<string>pro.aliencillo.newgridswitcherbig/prefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -272,7 +274,7 @@
 			<key>showValue</key>
 			<true/>
 			<key>PostNotification</key>
-			<string>pro.aliencillo.newgridswitcherbig/preferences.changed</string>
+			<string>pro.aliencillo.newgridswitcherbig/prefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -304,7 +306,7 @@
 			<key>showValue</key>
 			<true/>
 			<key>PostNotification</key>
-			<string>pro.aliencillo.newgridswitcherbig/preferences.changed</string>
+			<string>pro.aliencillo.newgridswitcherbig/prefs</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -322,6 +324,9 @@
 			<key>footerText</key>
 			<string>Some code from iknotum, eldar5581 and sinfool flex patches, Relative</string>
 		</dict>
+			<dict>
+
+</dict>
 	</array>
 	<key>title</key>
 	<string>NewGridSwitcherBig</string>
